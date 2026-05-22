@@ -731,10 +731,30 @@ table.align-table td:first-child {
 
 /* ==== Tab C - 標籤體系建置取向 ==== */
 .sys-overview-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
   margin: 24px 0;
+}
+.sys-layer-group-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--ink);
+  padding-top: 6px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.sys-layer-group-label b { color: var(--ink); letter-spacing: 0.05em; }
+.sys-layer-group-label .grp-note { font-family: 'Noto Serif TC', serif; font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.sys-layer-row-ad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.sys-layer-row-e {
+  margin-top: 18px;
 }
 .sys-layer-card {
   background: var(--paper);
@@ -744,6 +764,20 @@ table.align-table td:first-child {
   flex-direction: column;
   gap: 8px;
 }
+/* E 層獨立樣式 — 視覺上明顯與 A–D 不同層 */
+.sys-layer-card.sys-layer-e {
+  border: 1.5px dashed var(--muted);
+  background: rgba(45, 110, 138, 0.04);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 18px;
+}
+.sys-layer-card.sys-layer-e .sys-layer-code { color: var(--accent-2); font-size: 28px; }
+.sys-layer-card.sys-layer-e .sys-layer-name { font-size: 15px; }
+.sys-layer-card.sys-layer-e .sys-layer-q { border-top: none; padding-top: 0; grid-column: 2; }
+.sys-layer-card.sys-layer-e .sys-layer-e-headblock { display: flex; flex-direction: column; gap: 4px; }
 .sys-layer-card .sys-layer-code {
   font-family: 'Playfair Display', serif;
   font-size: 32px;
@@ -1010,7 +1044,9 @@ table.align-table td:first-child {
 }
 
 @media (max-width: 760px) {
-  .sys-overview-grid { grid-template-columns: repeat(2, 1fr); }
+  .sys-layer-row-ad { grid-template-columns: repeat(2, 1fr); }
+  .sys-layer-card.sys-layer-e { grid-template-columns: 1fr; gap: 8px; }
+  .sys-layer-card.sys-layer-e .sys-layer-q { grid-column: 1; }
   .sys-twocol { grid-template-columns: 1fr; }
   .sys-scenario-table { font-size: 12px; }
   .sys-scenario-table th, .sys-scenario-table td { padding: 8px 6px; }
@@ -1023,12 +1059,12 @@ table.align-table td:first-child {
 
 <!-- ==== TAB NAVIGATION ==== -->
 <nav class="tabs-nav" role="tablist">
-  <button class="active" data-tab="data" role="tab"><span class="tab-num">TAB · A</span>數據分析｜圖表與細節</button>
-  <button data-tab="plain" role="tab"><span class="tab-num">TAB · B</span>白話總覽｜分章說明</button>
-  <button data-tab="system" role="tab"><span class="tab-num">TAB · C</span>標籤體系建置取向</button>
+  <button class="active" data-tab="plain" role="tab"><span class="tab-num">TAB · A</span>白話總覽｜分章說明</button>
+  <button data-tab="system" role="tab"><span class="tab-num">TAB · B</span>標籤體系建置取向</button>
+  <button data-tab="data" role="tab"><span class="tab-num">TAB · C</span>數據分析｜圖表與細節</button>
 </nav>
 
-<div id="tab-data" class="tab-pane active">
+<div id="tab-data" class="tab-pane">
 <main>
 
 <!-- ==== MASTHEAD ==== -->
@@ -1178,7 +1214,7 @@ table.align-table td:first-child {
         <li style="margin-bottom: 6px;"><strong>不能比較</strong>：系統有，但欄位、單位、版本未對齊，無法用於跨產品比較。</li>
         <li style="margin-bottom: 0;"><strong>不可信</strong>：系統有，但 owner、版本、時效不明，使用時不敢採信。</li>
       </ol>
-      後文討論的 Q7（個別資訊類別的困難類型）、Q8（整體 gap 類型）、A–E 標籤層設計，皆以此四分為共通語言。
+      後文討論的 Q7（個別資訊類別的困難類型）、Q8（整體 gap 類型）、A–D 業務標籤層與 E 治理層的設計，皆以此四分為共通語言。
     </div>
   </div>
 
@@ -1709,7 +1745,7 @@ table.align-table td:first-child {
         <td class="num-mono">R2</td>
         <td><b>產品端的「困難」與直售端的「語言量」結構不對位。</b>
         Part I 顯示「市場與通路訊號」是產品端 100% 有困難的類別、其中 50% 直接答「系統沒這類資訊」；
-        而直售端 NLP 標籤體系亦無對應「市場訊號」的群（A-E 五群中無任一對應）。
+        而直售端 NLP 標籤體系亦無對應「市場訊號」的群（直售端 NLP 五群 A_銷售評價 / B_客群直指 / C_產品元件 / D_玩法定位 / E_警示風險 中無任一對應）。
         產品端缺資料的領域，恰好也是直售端不自然會講的領域。</td>
         <td class="num-mono">產品端：<br>市場訊號 12/12 困難<br>6/12 系統沒這類資訊<br>直售端：<br>無對應 NLP 群</td>
       </tr>
@@ -1888,7 +1924,7 @@ table.align-table td:first-child {
   <div class="take" style="border-color: var(--accent-3); background: rgba(45, 138, 79, 0.05); margin-top: 32px;">
     <div class="take-label" style="color: var(--accent-3);">CONVERGENCE</div>
     <div class="take-text">
-      六個對應點皆指向同一結論：<br><strong>報告所呈現的「困難」與「期待」，恰好對應於一個尚未建立的標籤體系 — 資料原料尚稱齊全（Q5 十類已有覆蓋），但欠缺正式的分層治理（A-E）。</strong>
+      六個對應點皆指向同一結論：<br><strong>報告所呈現的「困難」與「期待」，恰好對應於一個尚未建立的標籤體系 — 資料原料尚稱齊全（Q5 十類已有覆蓋），但欠缺正式的分層治理（A–D 業務標籤層 + E 治理層）。</strong>
     </div>
   </div>
 </section>
@@ -1945,19 +1981,19 @@ table.align-table td:first-child {
   <div class="take" style="border-color: var(--accent-3); background: rgba(45, 138, 79, 0.05);">
     <div class="take-label" style="color: var(--accent-3);">STRUCTURAL CONCLUSION</div>
     <div class="take-text">
-      報告數據於四個獨立位置上，分別<strong>指向</strong>「<strong>單層平鋪將失敗</strong>」此一觀察。標籤體系構思的「資料原料層 + 正式標籤層」兩層架構，以及正式層內 A-E 的五層切分，為此四個觀察的<strong>目前最簡回應結構</strong> — <strong>並非因標籤體系設計完整而合用，而是因報告數據與此結構高度相容</strong>。具體切分仍屬可進一步驗證的設計假設。
+      報告數據於四個獨立位置上，分別<strong>指向</strong>「<strong>單層平鋪將失敗</strong>」此一觀察。標籤體系構思的「資料原料層 + 正式標籤層」兩層架構，以及正式層內部「A–D 四類業務標籤 + E 治理 metadata」的角色分工，為此四個觀察的<strong>目前最簡回應結構</strong> — <strong>並非因標籤體系設計完整而合用，而是因報告數據與此結構高度相容</strong>。具體切分仍屬可進一步驗證的設計假設。
     </div>
   </div>
 </section>
 
-<!-- ==== P3 Section : 下一步取向 (A-E 展開) ==== -->
+<!-- ==== P3 Section : 下一步取向 (A–D + E 展開) ==== -->
 <section id="p3-direction">
   <div class="section-head">
     <div class="section-num" style="color:var(--accent-3)">19</div>
-    <h2>下一步：標籤體系的設計取向<small>WHERE THE A-E STRUCTURE LANDS</small></h2>
+    <h2>下一步：標籤體系的設計取向<small>WHERE THE A–D + E STRUCTURE LANDS</small></h2>
   </div>
   <p class="lede">
-    將報告觀察與標籤體系構思結合後，下一步要展開的是<strong>兩層架構</strong> — 第一層為「資料原料層」（自產品、行程、銷售、AI 抽詞中蒐集候選訊號）；第二層為「正式標籤結構層」，包含 A-E 五個子層。以下僅列出五層各自欲解決的問題，暫不展開內部子類 — <strong>子類與標籤治理細則保留至後續提案文件</strong>。
+    將報告觀察與標籤體系構思結合後，下一步要展開的是<strong>兩層架構</strong> — 第一層為「資料原料層」（自產品、行程、銷售、AI 抽詞中蒐集候選訊號）；第二層為「正式標籤結構層」，內部分兩種角色：<strong>A–D 為四類業務標籤</strong>（描述產品本身），<strong>E 為治理 metadata 層</strong>（描述 A–D 標籤本身的來源、owner、版本、可信度與生效期間）。以下分別列出 A–D 各層與 E 治理層各自欲解決的問題，暫不展開內部子類 — <strong>子類與標籤治理細則保留至後續提案文件</strong>。後文為敘述方便偶以「A–E」連寫，但 E 與 A–D 並非同一層 ontology — E 描述的對象不是產品、而是 A–D 標籤本身。
   </p>
 
   <div class="cards-row" style="grid-template-columns: 1fr 1fr;">
@@ -2084,7 +2120,7 @@ table.align-table td:first-child {
 </div>
 
 <!-- ==== TAB B: PLAIN-LANGUAGE NARRATIVE ==== -->
-<div id="tab-plain" class="tab-pane">
+<div id="tab-plain" class="tab-pane active">
 
 <!-- 前言 -->
 <div class="title-block" style="padding-bottom: 32px; margin-bottom: 32px;">
@@ -2494,7 +2530,7 @@ table.align-table td:first-child {
     <p class="plain-note">
       所以最少需要兩層：<strong>資料原料層</strong>負責盡量收（允許模糊、待判斷），
       <strong>正式標籤層</strong>負責穩定用（須有定義、owner、版本）。
-      而正式層內部之所以再切五個區塊（A–D 四類業務標籤 + E 治理 metadata），正是為了把「本體 / 投影 / 履約 / 狀態 / 治理」這五種<strong>性質完全不同的訊號</strong>各自歸位 —
+      而正式層內部之所以再分兩種角色 — <strong>A–D 四類業務標籤</strong>（本體 / 投影 / 履約 / 狀態）<strong>加上 E 治理 metadata</strong>（描述標籤本身），正是為了把「產品本體訊號、販售投影訊號、履約事實、狀態與事件、標籤治理資訊」這五種<strong>性質完全不同的對象</strong>各自歸位 —
       下一章鋪開這個結構的最簡輪廓。
     </p>
   </div>
@@ -2507,7 +2543,7 @@ table.align-table td:first-child {
     <h3>兩層架構與 A–D + E 的一句話定位</h3>
     <p>
       本章僅鋪開最簡輪廓 — 兩層架構分為「資料原料層」與「正式標籤結構層」，
-      後者再切五個區塊（A–D 四類業務標籤 + E 治理 metadata）。<strong>每層只用一句話回答它要解決的問題</strong>，
+      後者內部再分兩種角色：<strong>A–D 為四類業務標籤</strong>，<strong>E 為治理 metadata 層</strong>。<strong>每層／每種角色只用一句話回答它要解決的問題</strong>，
       子類定義、判斷邊界、掛載對象、跨層使用場景，留待下一頁展開。
     </p>
     <p>
@@ -2537,7 +2573,7 @@ table.align-table td:first-child {
     </p>
     <p class="plain-note">
       → 本提案至此完成「為何採此分層」的數據基礎。接下來 <strong>TAB C｜標籤體系建置取向</strong>
-      展開：A-E 各層的子類定義與容易混淆的判斷邊界、標籤要掛在哪個物件上、五個跨層使用場景，
+      展開：A–D 各業務層與 E 治理層的子類定義與容易混淆的判斷邊界、標籤要掛在哪個物件上、五個跨層使用場景，
       以及本提案與後續執行各自的工作邊界。
     </p>
   </div>
@@ -2551,7 +2587,7 @@ table.align-table td:first-child {
 <!-- 前言 -->
 <div class="title-block" style="padding-bottom: 32px; margin-bottom: 32px;">
   <div class="kicker">標籤體系建置取向｜從報告到設計</div>
-  <h1 style="font-size: clamp(40px, 5vw, 64px);">兩層、五層、七種掛載對象、<em>五個使用場景</em>。</h1>
+  <h1 style="font-size: clamp(40px, 5vw, 64px);">兩層架構、<em>A–D + E</em> 角色分工、七種掛載對象、<em>五個使用場景</em>。</h1>
   <p class="deck">
     本頁承接 TAB B 第 17–19 章，鋪開標籤體系的設計取向。
     內容聚焦於三件事：<strong>A–D 四類業務標籤 + E 治理 metadata 各自的子類定義與容易混淆的判斷邊界</strong>、
@@ -2574,7 +2610,7 @@ table.align-table td:first-child {
     <h3>這套體系不是憑空畫的</h3>
     <p>
       TAB B 第 17 章說明了報告觀察與標籤體系構思在骨架上是同一件事；第 18 章解釋為什麼平鋪不可行；
-      第 19 章鋪開了兩層 + 五層的最簡輪廓。本頁的工作，是把那個輪廓<strong>展開到「可以開始討論建置」的程度</strong>。
+      第 19 章鋪開了兩層架構與「A–D + E」角色分工的最簡輪廓。本頁的工作，是把那個輪廓<strong>展開到「可以開始討論建置」的程度</strong>。
     </p>
     <p>
       本提案的工作邊界刻意收窄：只解釋「為什麼這樣分」與「分了以後怎麼用」。
@@ -2598,39 +2634,57 @@ table.align-table td:first-child {
   <div class="plain-chapter-num">02</div>
   <div class="plain-chapter-body">
     <div class="plain-kicker">體系全景</div>
-    <h3>一張圖看完兩層 + 五層</h3>
+    <h3>一張圖看完兩層架構 + A–D 業務標籤 + E 治理層</h3>
     <p>
       在進入各層細節之前，先用一張圖把整體結構鋪開。
       <strong>外層是兩層分工：原料層 ↔ 正式標籤層</strong>；
-      <strong>正式標籤層內部再切 A-E 五個子層</strong>。
-      原料層負責「盡量收」，正式層負責「穩定用」 — 這兩層的職責不能混。
+      <strong>正式標籤層內部再分兩種角色 — A–D 為四類業務標籤（描述產品本身），E 為治理 metadata 層（描述 A–D 標籤本身的來源、owner、版本、可信度與生效期間）</strong>。
+      原料層負責「盡量收」，正式層負責「穩定用」；A–D 與 E 在正式層內部則描述兩種不同對象 — 一個指向產品、一個指向標籤本身。三組職責不能混。
     </p>
 
     <div class="sys-overview-grid">
-      <div class="sys-layer-card">
-        <div class="sys-layer-code">A</div>
-        <div class="sys-layer-name">產品語意層</div>
-        <div class="sys-layer-q">這個產品是什麼？<br>（穩定、不隨通路變）</div>
+      <div class="sys-layer-group-label">
+        <b>A–D · 業務標籤層</b>
+        <span class="grp-note">描述對象：產品本身（本體 / 投影 / 履約 / 狀態）</span>
       </div>
-      <div class="sys-layer-card">
-        <div class="sys-layer-code">B</div>
-        <div class="sys-layer-name">販售投影層</div>
-        <div class="sys-layer-q">這個產品怎麼賣？<br>（同產品不同通路有不同投影）</div>
+      <div class="sys-layer-row-ad">
+        <div class="sys-layer-card">
+          <div class="sys-layer-code">A</div>
+          <div class="sys-layer-name">產品語意層</div>
+          <div class="sys-layer-q">這個產品是什麼？<br>（穩定、不隨通路變）</div>
+        </div>
+        <div class="sys-layer-card">
+          <div class="sys-layer-code">B</div>
+          <div class="sys-layer-name">販售投影層</div>
+          <div class="sys-layer-q">這個產品怎麼賣？<br>（同產品不同通路有不同投影）</div>
+        </div>
+        <div class="sys-layer-card">
+          <div class="sys-layer-code">C</div>
+          <div class="sys-layer-name">供給履約層</div>
+          <div class="sys-layer-q">能否穩定交付？<br>（旅遊產品與一般電商最大差異）</div>
+        </div>
+        <div class="sys-layer-card">
+          <div class="sys-layer-code">D</div>
+          <div class="sys-layer-name">狀態事件層</div>
+          <div class="sys-layer-q">走到哪、發生什麼？<br>（隨時間每天都在變）</div>
+        </div>
       </div>
-      <div class="sys-layer-card">
-        <div class="sys-layer-code">C</div>
-        <div class="sys-layer-name">供給履約層</div>
-        <div class="sys-layer-q">能否穩定交付？<br>（旅遊產品與一般電商最大差異）</div>
-      </div>
-      <div class="sys-layer-card">
-        <div class="sys-layer-code">D</div>
-        <div class="sys-layer-name">狀態事件層</div>
-        <div class="sys-layer-q">走到哪、發生什麼？<br>（隨時間每天都在變）</div>
-      </div>
-      <div class="sys-layer-card">
-        <div class="sys-layer-code">E</div>
-        <div class="sys-layer-name">標籤治理層</div>
-        <div class="sys-layer-q">標籤本身的身分證<br>（不是產品標籤、是 metadata）</div>
+
+      <div class="sys-layer-row-e">
+        <div class="sys-layer-group-label">
+          <b>E · 治理 metadata 層</b>
+          <span class="grp-note">描述對象：A–D 標籤本身（不是產品）</span>
+        </div>
+        <div class="sys-layer-card sys-layer-e">
+          <div class="sys-layer-e-headblock">
+            <div class="sys-layer-code">E</div>
+            <div class="sys-layer-name">標籤治理層</div>
+          </div>
+          <div class="sys-layer-q">
+            <strong>不是第五種產品標籤</strong>，而是描述 A–D 每一個標籤的身分證 —
+            來源、owner、版本、可信度、生效期間。下游使用 A–D 時，透過 E 判斷該標籤是否仍有效、是否可信。
+          </div>
+        </div>
       </div>
     </div>
 
